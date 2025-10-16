@@ -1,0 +1,141 @@
+{
+  "citations": [
+    {
+      "id": "trm-2025",
+      "authors": "Alexia Jolicoeur-Martineau",
+      "title": "Less is More: Recursive Reasoning with Tiny Networks",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.04871",
+      "type": "paper",
+      "local_pdf": "/papers/less_is_more_jolicoeur_martineau.pdf"
+    },
+    {
+      "id": "trm-github",
+      "authors": "Samsung SAIL Montreal",
+      "title": "TinyRecursiveModels - Official Implementation",
+      "year": 2025,
+      "url": "https://github.com/SamsungSAILMontreal/TinyRecursiveModels/tree/main/models/recursive_reasoning",
+      "type": "code"
+    },
+    {
+      "id": "hrm-2025",
+      "authors": "Wang, G., Li, J., Sun, Y., Chen, X., Liu, C., Wu, Y., Lu, M., Song, S., and Yadkori, Y. A.",
+      "title": "Hierarchical Reasoning Model",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2506.21734",
+      "type": "paper",
+      "local_pdf": "/papers/hierarchical_reasoning_model_wang.pdf"
+    },
+    {
+      "id": "arc-prize-hrm-analysis",
+      "authors": "ARC Prize Foundation",
+      "title": "The Hidden Drivers of HRM's Performance on ARC-AGI",
+      "year": 2025,
+      "url": "https://arcprize.org/blog/hrm-analysis",
+      "type": "blog"
+    }
+  ],
+  "references": [
+    {
+      "cite_id": "hrm-verification-drop",
+      "citation_id": "arc-prize-hrm-analysis",
+      "quote": "HRM achieved 40% on the public ARC-AGI-1 evaluation set, but when tested on a held-out semi-private test set, performance dropped to 32%.",
+      "location": "ARC Prize blog post",
+      "page": "N/A",
+      "section": "Verification Results",
+      "slide": 1,
+      "context": "Independent verification by ARC Prize Foundation showing HRM's claimed 40% dropped to 32% on held-out data"
+    },
+    {
+      "cite_id": "llm-performance-comparison",
+      "citation_id": "trm-2025",
+      "quote": "Table 5. % Test accuracy on ARC-AGI Benchmarks (2 tries) - Deepseek R1 (671B): 15.8% ARC-1, 1.3% ARC-2; o3-mini-high: 34.5% ARC-1, 3.0% ARC-2; Gemini 2.5 Pro 32K: 37.0% ARC-1, 4.9% ARC-2",
+      "location": "Table 5, lines 892-913",
+      "page": "Page 8",
+      "section": "Results - Table 5",
+      "slide": 2,
+      "context": "Performance comparison of LLMs on ARC-AGI benchmarks from Table 5"
+    },
+    {
+      "cite_id": "trm-performance",
+      "citation_id": "trm-2025",
+      "quote": "TRM-Att (Ours), 7M parameters: 44.6% ARC-1, 7.8% ARC-2",
+      "location": "Table 5, lines 931-934",
+      "page": "Page 8",
+      "section": "Results - Table 5",
+      "slide": 2,
+      "context": "TRM's performance on ARC-AGI benchmarks from Table 5"
+    },
+    {
+      "cite_id": "hrm-performance-trm-paper",
+      "citation_id": "trm-2025",
+      "quote": "HRM, 27M parameters: 40.3% ARC-1, 5.0% ARC-2",
+      "location": "Table 5, lines 927-930",
+      "page": "Page 8",
+      "section": "Results - Table 5",
+      "slide": 2,
+      "context": "HRM's performance as reported in the TRM paper (Table 5). Note: Independent verification by ARC Prize Foundation found 32% ARC-1, 2% ARC-2."
+    },
+    {
+      "cite_id": "hrm-core-architecture",
+      "citation_id": "hrm-2025",
+      "quote": "<strong>1) IDENTICAL ARCHITECTURE:</strong><br>'Both the low-level and high-level recurrent modules fL and fH are implemented using encoder-only Transformer blocks with identical architectures and dimensions. These modules take multiple inputs, and we use straightforward element-wise addition to combine them.' (Lines 704-707)<br><br><strong>2) SHARED LATENT STATE:</strong><br>'The modules fL and fH each keep a hidden state—zi_L for fL and zi_H for fH... At each timestep i, the L-module updates its state conditioned on its own previous state, the H-module's current state... and the input representation.' (Lines 239-250)<br><br><strong>3) DIFFERENT FREQUENCIES:</strong><br>'These hierarchical levels in the brain operate at distinct intrinsic timescales... The H-module only updates once per cycle (i.e., every T timesteps) using the L-module's final state at the end of that cycle.' (Lines 228-231, 251-252)<br><br><strong>4) RECURRENT (NOT RNN):</strong><br>'Recurrent Connectivity: The brain features extensive recurrent connections. These feedback loops enable iterative refinement... Additionally, the brain largely avoids the problematic deep credit assignment problem associated with BPTT.' Unlike standard RNNs that converge to fixed points, HRM uses hierarchical convergence where modules interact at different timescales. (Lines 232-235, 278-283)",
+      "location": "Pages 4, 9-10 (Lines 228-235, 239-252, 278-283, 704-707)",
+      "page": "Pages 4, 9-10",
+      "section": "Model Architecture",
+      "slide": 3,
+      "context": "HRM's core architectural principles: identical Transformer blocks operating at different frequencies over shared latent states with recurrent (but not RNN-style) connectivity"
+    },
+    {
+      "cite_id": "hrm-act-mechanism",
+      "citation_id": "trm-2025",
+      "quote": "<strong>ADAPTIVE COMPUTATIONAL TIME (ACT):</strong> HRM's halting mechanism to decide when to stop iterating.<br><br><strong>Q-Learning Component:</strong><br>'A Q-learning objective... decides when to halt and move to a new data sample rather than keep iterating... It is learned through a Q-learning objective that requires passing the zH through an additional head.' The model predicts Q_halt (q[0]) and Q_continue (q[1]) values at each step. (Lines 253-254, 367-368)<br><br><strong>Halting Decision:</strong><br>'if q[0] > q[1]: # early-stopping' — The model stops when halt value exceeds continue value, up to max Nsup=16 steps. (Line 205)<br><br><strong>Loss Function:</strong><br>ACT uses two losses:<br>• ACT_halt: 'loss = 0.5 * binary_cross_entropy(q[0], target_halt)' where target_halt = (y_hat == y_true)<br>• ACT_continue: 'loss = 0.5 * binary_cross_entropy(q[1], target_continue)'<br>(Lines 178-187)<br><br><strong>Cost:</strong><br>'The Q-learning objective relies on a halting loss and a continue loss. The continue loss requires an extra forward pass through HRM... This means... it requires 2 forward passes per optimization step.' (Lines 376-380)",
+      "location": "TRM Paper describing HRM's ACT: Lines 178-206, 243-265, 360-384",
+      "page": "Pages 3-4 (TRM paper)",
+      "section": "Background: HRM's ACT mechanism",
+      "slide": 3,
+      "context": "How HRM uses Q-learning to decide when to stop iterating (Adaptive Computational Time)"
+    },
+    {
+      "cite_id": "trm-core-architecture",
+      "citation_id": "trm-2025",
+      "quote": "<strong>KEY INNOVATION: One Network Does Both Jobs</strong><br><br><strong>HRM's Approach (TWO networks):</strong><br>• fL updates z: z ← fL(x, y, z) — runs n=2 times per cycle<br>• fH updates y: y ← fH(y, z) — runs once per cycle<br>• Different frequencies, different networks, 27M params<br><br><strong>TRM's Insight (ONE network):</strong><br>'The task to achieve (iterating on z versus using z to update y) is directly specified by the inclusion or lack of x in the inputs. Thus... both networks could be replaced by a single network doing both tasks... It turns out that a single network is enough.' (Lines 632-642)<br><br><strong>How it works:</strong><br>• z ← net(x, y, z) — iterate reasoning (x IS included)<br>• y ← net(y, z) — update solution (x NOT included)<br>• Same network, different inputs = different behaviors<br><br><strong>Per forward pass:</strong><br>• One cycle: n=6 z-updates, then 1 y-update<br>• Repeat T=3 cycles (2 without gradients, 1 with)<br>• Total per pass: 18 z-updates + 3 y-updates<br><br><strong>Deep supervision:</strong><br>• Repeat forward pass up to Nsup=16 times per training example<br>• Early stopping with halting mechanism<br><br><strong>NO more frequency separation!</strong> Just: 'for i in range(n): z = net(x, y, z)' then 'y = net(y, z)' (Lines 414-416)<br><br><strong>Architecture:</strong><br>• Just 2 layers (vs HRM's 4 layers × 2 networks)<br>• 7M params with attention OR 5M with MLP-Mixer style<br>• 'Using 2 layers (instead of 4 layers) maximized generalization... while reducing the number of parameters by half' (Lines 656-662)<br><br><strong>Two Features (same as HRM):</strong><br>• y = proposed solution (was zH)<br>• z = latent reasoning (was zL)<br>'There is simply an input x, a proposed solution y... and a latent reasoning feature z... the model recursively improves its latent z. Then... proposes a new solution y.' (Lines 565-571)",
+      "location": "Pages 5-7 (Lines 413-439, 565-571, 632-642, 649-662)",
+      "page": "Pages 5-7",
+      "section": "TRM Architecture - Key Delta from HRM",
+      "slide": 4,
+      "context": "How TRM uses ONE network instead of TWO by using input presence/absence to distinguish tasks, eliminating frequency separation"
+    },
+    {
+      "cite_id": "deep-supervision-both",
+      "citation_id": "trm-2025",
+      "quote": "<strong>BOTH HRM AND TRM USE Nsup=16</strong><br><br>'Nsup = 16 max supervision steps... HRM uses n = 2, T = 2 with two 4-layers networks, while we use n = 6, T = 3 with one 2-layer network.' (Lines 1155-1158)<br><br><strong>What is Deep Supervision?</strong><br>'Deep supervision consists of improving the answer through multiple supervision steps while carrying the two latent features as initialization for the improvement steps (after detaching them from the computational graph).' (Lines 91-95)<br><br><strong>Actual Training Loop:</strong><br>```python<br># pretrain.py lines 386-393<br>while True:<br>    carry, loss, metrics, preds, all_finish = model(...)<br>    inference_steps += 1<br>    if all_finish:  # ALL sequences halted?<br>        break<br>```<br><br><strong>When does all_finish = True?</strong><br>```python<br># losses.py line 102<br>all_finish = new_carry.halted.all()  # True when ALL sequences halted<br>```<br><br><strong>When does a sequence halt?</strong><br>```python<br># trm.py lines 270-283<br>is_last_step = new_steps >= 16  # Max 16 steps<br>halted = is_last_step<br><br>if training and ACT_enabled:<br>    halted = halted | (q_halt_logits > q_continue_logits)<br>```<br>Halts when: (1) Reaches 16 steps, OR (2) During training: Q-learning says halt > continue<br><br><strong>📍 See exact code:</strong><br>• <a href='https://github.com/SamsungSAILMontreal/TinyRecursiveModels/blob/main/pretrain.py#L386-L393' target='_blank' style='color: #3b82f6;'>Training loop</a><br>• <a href='https://github.com/SamsungSAILMontreal/TinyRecursiveModels/blob/main/models/losses.py#L102' target='_blank' style='color: #3b82f6;'>all_finish definition</a><br>• <a href='https://github.com/SamsungSAILMontreal/TinyRecursiveModels/blob/main/models/recursive_reasoning/trm.py#L270-L283' target='_blank' style='color: #3b82f6;'>Halting logic</a>",
+      "location": "TRM Paper Lines 91-95, 242, 427-437, 1155-1158",
+      "page": "Pages 3, 5, 11",
+      "section": "Deep Supervision (shared by both models)",
+      "slide": 5,
+      "context": "Both HRM and TRM use the same Nsup=16 deep supervision outer loop - this is NOT a qualitative comparison but literally the same hyperparameter"
+    },
+    {
+      "cite_id": "arc-prize-ablations",
+      "citation_id": "trm-2025",
+      "quote": "<br><br>\"An independent analysis on the ARC-AGI benchmark showed that deep supervision seems to be the primary driver of the performance gains (ARC Prize Foundation, 2025a). Using deep supervision doubled accuracy over single-step supervision (going from 19% to 39% accuracy), while recursive hierarchical reasoning only slightly improved accuracy over a regular model with a single forward pass (going from 35.7% to 39.0% accuracy). This suggests that reasoning across different supervision steps is worth it, but the recursion done in each supervision step is not particularly important.\" (lines 99-109)<br><br><strong>Key Findings:</strong><br>• Deep supervision: 19% → 39% (+20pp)<br>• Hierarchical reasoning: 35.7% → 39.0% (+3.3pp)<br>• Deep supervision ~6x more impactful than hierarchy<br><br><strong>Source:</strong> Jolicoeur-Martineau (2025) citing ARC Prize Foundation analysis",
+      "location": "Lines 99-109",
+      "page": "Page 2",
+      "section": "Introduction",
+      "slide": 6,
+      "context": "TRM paper reporting ARC Prize Foundation's ablation study findings"
+    },
+    {
+      "cite_id": "training-vs-inference",
+      "citation_id": "arc-prize-hrm-analysis",
+      "quote": "<strong>Finding #2: Training with refinement >> Inference with refinement</strong><br><br>\"To understand the impact of refinement during training vs. inference, we further varied the number of inference refinement loops independently from the training refinement loops.\"<br><br>\"Comparing these two classes of models shows a material difference, particularly at low-inference refinement steps (1 and 4), see Figure 5. <strong>Training with more refinement improves the performance of predictions with a single refinement loop by >15pp</strong>, even though one loop means a single forward pass without any refinement. Further refinement loops at inference don't have as big of an impact. <strong>This indicates that training with refinement loops is more important than using the refinement for inference.</strong>\"<br><br><strong>Figure 5 Data (Pass@2 performance):</strong><br>• Train 1, Test 1: 18.6% (baseline)<br>• Train 16, Test 1: 34.9% (+16.3pp from training)<br>• Train 16, Test 4: 38.2% (+3.3pp from inference)<br><br><strong>The Verdict:</strong><br>Training with deep supervision has ~5× the impact of inference-time refinement.",
+      "location": "Lines 135-141, Figure 5",
+      "page": "Finding #2",
+      "section": "Analyzing HRM's Contribution to ARC Scores",
+      "slide": 7,
+      "context": "ARC Prize Foundation's ablation study showing training with refinement steps is 5× more impactful than using refinement at inference time"
+    }
+  ]
+}
+

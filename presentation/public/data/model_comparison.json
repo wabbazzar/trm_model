@@ -1,0 +1,57 @@
+{
+  "models": [
+    {
+      "name": "Gemini 2.5 Pro",
+      "type": "LLM",
+      "parameters": "Unknown",
+      "arc_agi_1": 0.370,
+      "arc_agi_2": 0.049,
+      "sudoku": null,
+      "maze": null,
+      "color": "#ea4335"
+    },
+    {
+      "name": "o3-mini",
+      "type": "LLM",
+      "parameters": "Unknown",
+      "arc_agi_1": 0.345,
+      "arc_agi_2": 0.030,
+      "sudoku": 0,
+      "maze": 0,
+      "color": "#10a37f"
+    },
+    {
+      "name": "Deepseek R1",
+      "type": "LLM",
+      "parameters": "Unknown",
+      "arc_agi_1": 0.158,
+      "arc_agi_2": 0.013,
+      "sudoku": 0,
+      "maze": 0,
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "HRM",
+      "type": "Small Model",
+      "parameters": 27000000,
+      "arc_agi_1": 0.403,
+      "arc_agi_1_verified": 0.32,
+      "arc_agi_2": 0.050,
+      "arc_agi_2_verified": 0.02,
+      "sudoku": 0.55,
+      "maze": 0.745,
+      "color": "#3b82f6"
+    },
+    {
+      "name": "TRM",
+      "type": "Small Model",
+      "parameters": 7000000,
+      "arc_agi_1": 0.446,
+      "arc_agi_2": 0.078,
+      "sudoku": 0.874,
+      "maze": 0.853,
+      "color": "#f97316"
+    }
+  ]
+}
+

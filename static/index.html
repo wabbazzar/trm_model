@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRM - Tiny Recursive Model Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .model-info {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .model-info h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .model-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .stat {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            color: #2d3748;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        select, button, input {
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            font-size: 1em;
+            font-family: inherit;
+        }
+
+        select {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            cursor: pointer;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .task-display {
+            margin-bottom: 30px;
+        }
+
+        .task-section {
+            margin-bottom: 25px;
+        }
+
+        .task-section h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .example-pair {
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .example-pair h4 {
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .grid-pair {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .grid-container {
+            flex: 1;
+        }
+
+        .grid-label {
+            color: #718096;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .grid {
+            display: inline-grid;
+            gap: 2px;
+            background: #cbd5e0;
+            padding: 2px;
+            border-radius: 4px;
+        }
+
+        .grid-cell {
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .arrow {
+            font-size: 2em;
+            color: #a0aec0;
+        }
+
+        .results {
+            background: #f7fafc;
+            border: 2px solid #48bb78;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .results h3 {
+            color: #22543d;
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #718096;
+        }
+
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #fed7d7;
+            border: 2px solid #fc8181;
+            border-radius: 8px;
+            padding: 20px;
+            color: #742a2a;
+            margin-top: 20px;
+        }
+
+        .warning {
+            background: #fef3c7;
+            border: 2px solid #fbbf24;
+            border-radius: 8px;
+            padding: 15px;
+            color: #78350f;
+            margin-bottom: 20px;
+        }
+
+        /* Color palette for ARC-AGI (0-9) */
+        .color-0 { background-color: #000000; }
+        .color-1 { background-color: #0074D9; }
+        .color-2 { background-color: #FF4136; }
+        .color-3 { background-color: #2ECC40; }
+        .color-4 { background-color: #FFDC00; }
+        .color-5 { background-color: #AAAAAA; }
+        .color-6 { background-color: #F012BE; }
+        .color-7 { background-color: #FF851B; }
+        .color-8 { background-color: #7FDBFF; }
+        .color-9 { background-color: #870C25; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Tiny Recursive Model</h1>
+            <p>Interactive Demo for ARC-AGI Puzzle Solving</p>
+        </div>
+
+        <div class="content">
+            <div id="model-info" class="model-info">
+                <h3>Model Information</h3>
+                <div class="model-stats" id="model-stats">
+                    <div class="loading">Loading model info...</div>
+                </div>
+            </div>
+
+            <div class="warning">
+                ⚠️ <strong>Note:</strong> This demo uses a randomly initialized model (no pre-trained weights available yet). 
+                The predictions will not be meaningful until the model is trained. This interface demonstrates the recursive reasoning process and API functionality.
+            </div>
+
+            <div class="controls">
+                <select id="task-select">
+                    <option value="">Select an example task...</option>
+                </select>
+                <input type="number" id="max-steps" min="1" max="32" value="8" placeholder="Max steps">
+                <label>
+                    <input type="checkbox" id="show-iterations"> Show iterations
+                </label>
+                <button id="solve-btn" onclick="solvePuzzle()">Solve Puzzle</button>
+            </div>
+
+            <div id="task-display" class="task-display"></div>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentTask = null;
+        let examples = [];
+
+        // Load model info
+        async function loadModelInfo() {
+            try {
+                const response = await fetch('/api/model-info');
+                const info = await response.json();
+                
+                const statsHTML = `
+                    <div class="stat">
+                        <div class="stat-label">Model</div>
+                        <div class="stat-value">${info.name}</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Parameters</div>
+                        <div class="stat-value">${(info.parameters / 1e6).toFixed(1)}M</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Device</div>
+                        <div class="stat-value">${info.device.toUpperCase()}</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">H Cycles</div>
+                        <div class="stat-value">${info.config.H_cycles}</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">L Cycles</div>
+                        <div class="stat-value">${info.config.L_cycles}</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Hidden Size</div>
+                        <div class="stat-value">${info.config.hidden_size}</div>
+                    </div>
+                `;
+                
+                document.getElementById('model-stats').innerHTML = statsHTML;
+            } catch (error) {
+                document.getElementById('model-stats').innerHTML = 
+                    '<div class="error">Failed to load model info</div>';
+            }
+        }
+
+        // Load example tasks
+        async function loadExamples() {
+            try {
+                const response = await fetch('/api/examples');
+                const data = await response.json();
+                examples = data.examples;
+                
+                const select = document.getElementById('task-select');
+                examples.forEach((ex, idx) => {
+                    const option = document.createElement('option');
+                    option.value = idx;
+                    option.textContent = `${ex.name} (${ex.num_train} train, ${ex.num_test} test)`;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Failed to load examples:', error);
+            }
+        }
+
+        // Render a grid
+        function renderGrid(grid, label) {
+            const height = grid.length;
+            const width = grid[0].length;
+            
+            const container = document.createElement('div');
+            container.className = 'grid-container';
+            
+            const labelDiv = document.createElement('div');
+            labelDiv.className = 'grid-label';
+            labelDiv.textContent = label;
+            container.appendChild(labelDiv);
+            
+            const gridDiv = document.createElement('div');
+            gridDiv.className = 'grid';
+            gridDiv.style.gridTemplateColumns = `repeat(${width}, 20px)`;
+            
+            for (let row of grid) {
+                for (let cell of row) {
+                    const cellDiv = document.createElement('div');
+                    cellDiv.className = `grid-cell color-${cell}`;
+                    gridDiv.appendChild(cellDiv);
+                }
+            }
+            
+            container.appendChild(gridDiv);
+            return container;
+        }
+
+        // Display selected task
+        document.getElementById('task-select').addEventListener('change', (e) => {
+            const idx = e.target.value;
+            if (idx === '') {
+                document.getElementById('task-display').innerHTML = '';
+                currentTask = null;
+                return;
+            }
+            
+            currentTask = examples[idx].task;
+            displayTask(currentTask);
+        });
+
+        function displayTask(task) {
+            const display = document.getElementById('task-display');
+            
+            let html = '<div class="task-section"><h3>Training Examples (Demonstrations)</h3>';
+            html += '<div class="examples-grid">';
+            
+            task.train.forEach((example, idx) => {
+                html += `<div class="example-pair"><h4>Example ${idx + 1}</h4><div class="grid-pair" id="train-${idx}"></div></div>`;
+            });
+            
+            html += '</div></div>';
+            
+            html += '<div class="task-section"><h3>Test Inputs (To Solve)</h3>';
+            html += '<div class="examples-grid">';
+            
+            task.test.forEach((test, idx) => {
+                html += `<div class="example-pair"><h4>Test ${idx + 1}</h4><div class="grid-pair" id="test-${idx}"></div></div>`;
+            });
+            
+            html += '</div></div>';
+            
+            display.innerHTML = html;
+            
+            // Render grids
+            task.train.forEach((example, idx) => {
+                const container = document.getElementById(`train-${idx}`);
+                container.appendChild(renderGrid(example.input, 'Input'));
+                const arrow = document.createElement('div');
+                arrow.className = 'arrow';
+                arrow.textContent = '→';
+                container.appendChild(arrow);
+                container.appendChild(renderGrid(example.output, 'Output'));
+            });
+            
+            task.test.forEach((test, idx) => {
+                const container = document.getElementById(`test-${idx}`);
+                container.appendChild(renderGrid(test.input, 'Input'));
+            });
+        }
+
+        // Solve puzzle
+        async function solvePuzzle() {
+            if (!currentTask) {
+                alert('Please select a task first');
+                return;
+            }
+            
+            const maxSteps = parseInt(document.getElementById('max-steps').value);
+            const showIterations = document.getElementById('show-iterations').checked;
+            const resultsDiv = document.getElementById('results');
+            const solveBtn = document.getElementById('solve-btn');
+            
+            solveBtn.disabled = true;
+            resultsDiv.innerHTML = '<div class="loading"><div class="spinner"></div><p>Running recursive reasoning...</p></div>';
+            
+            try {
+                const response = await fetch('/api/solve', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        task: currentTask,
+                        max_steps: maxSteps,
+                        show_iterations: showIterations
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                displayResults(data);
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="error"><strong>Error:</strong> ${error.message}</div>`;
+            } finally {
+                solveBtn.disabled = false;
+            }
+        }
+
+        function displayResults(data) {
+            const resultsDiv = document.getElementById('results');
+            
+            let html = '<div class="results">';
+            html += '<h3>✓ Results</h3>';
+            html += '<div class="examples-grid">';
+            
+            data.predictions.forEach((pred, idx) => {
+                html += `<div class="example-pair"><h4>Test ${idx + 1} Prediction</h4><div class="grid-pair" id="result-${idx}"></div></div>`;
+            });
+            
+            html += '</div></div>';
+            
+            resultsDiv.innerHTML = html;
+            
+            // Render prediction grids
+            data.predictions.forEach((pred, idx) => {
+                const container = document.getElementById(`result-${idx}`);
+                container.appendChild(renderGrid(pred.prediction, 'Prediction'));
+                
+                if (pred.iterations) {
+                    const iterInfo = document.createElement('div');
+                    iterInfo.style.marginTop = '10px';
+                    iterInfo.style.color = '#718096';
+                    iterInfo.textContent = `Converged in ${pred.iterations.length} iterations`;
+                    container.appendChild(iterInfo);
+                }
+            });
+        }
+
+        // Initialize
+        loadModelInfo();
+        loadExamples();
+    </script>
+</body>
+</html>
+

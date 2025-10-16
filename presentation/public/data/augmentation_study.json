@@ -1,0 +1,16 @@
+{
+  "title": "Data Augmentation Impact",
+  "source": "ARC Prize Foundation (2025) - Figure 7",
+  "data": [
+    {"augmentations": 30, "accuracy": 0.35, "training_augs": 1000},
+    {"augmentations": 100, "accuracy": 0.37, "training_augs": 1000},
+    {"augmentations": 300, "accuracy": 0.39, "training_augs": 1000},
+    {"augmentations": 1000, "accuracy": 0.41, "training_augs": 1000}
+  ],
+  "insights": [
+    "300 augmentations achieves 95% of peak performance",
+    "Training augmentation matters more than inference augmentation",
+    "Diminishing returns after 300 augmentations"
+  ]
+}
+

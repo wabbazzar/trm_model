@@ -1,0 +1,25 @@
+<svg width="600" height="300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Kahneman's Two Systems -->
+  
+  <!-- System 1 -->
+  <rect x="50" y="50" width="200" height="200" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" rx="10"/>
+  <text x="150" y="80" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e3a8a">System 1</text>
+  <text x="150" y="110" text-anchor="middle" font-size="13" fill="#1e40af">Fast</text>
+  <text x="150" y="135" text-anchor="middle" font-size="13" fill="#1e40af">Automatic</text>
+  <text x="150" y="160" text-anchor="middle" font-size="13" fill="#1e40af">Intuitive</text>
+  <text x="150" y="185" text-anchor="middle" font-size="13" fill="#1e40af">Low Effort</text>
+  <text x="150" y="220" text-anchor="middle" font-size="11" fill="#64748b" font-style="italic">HRM: L-Network</text>
+  
+  <!-- System 2 -->
+  <rect x="350" y="50" width="200" height="200" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" rx="10"/>
+  <text x="450" y="80" text-anchor="middle" font-size="18" font-weight="bold" fill="#78350f">System 2</text>
+  <text x="450" y="110" text-anchor="middle" font-size="13" fill="#92400e">Slow</text>
+  <text x="450" y="135" text-anchor="middle" font-size="13" fill="#92400e">Deliberate</text>
+  <text x="450" y="160" text-anchor="middle" font-size="13" fill="#92400e">Analytical</text>
+  <text x="450" y="185" text-anchor="middle" font-size="13" fill="#92400e">High Effort</text>
+  <text x="450" y="220" text-anchor="middle" font-size="11" fill="#64748b" font-style="italic">HRM: H-Network</text>
+  
+  <!-- Title -->
+  <text x="300" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">Kahneman: Thinking, Fast and Slow</text>
+</svg>
+

@@ -696,7 +696,7 @@ Each slide follows this pattern in `presentation/src/slides/SlideXX.svelte`:
     
     <div class="thesis-box bg-slate-800/50 p-8 rounded-xl border-2 border-blue-500 mb-12">
       <p class="text-xl text-center italic">
-        "We argue that the success of both HRM and TRM comes not from their <span class="text-blue-400">architectures</span>, 
+        "The success of both HRM and TRM comes not from their <span class="text-blue-400">architectures</span>, 
         but from <span class="text-orange-400">how they train</span>—through iterative refinement with deep supervision."
       </p>
     </div>

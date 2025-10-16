@@ -22,7 +22,7 @@
 - Title: Analyzing TRM - What Really Drives Performance
 - Subtitle: When iterative refinement beats architectural complexity
 - Your name & date
-- **Thesis Statement**: "We argue that the success of both HRM and TRM comes not from their architectures, but from how they train—through iterative refinement with deep supervision."
+- **Thesis Statement**: "The success of both HRM and TRM comes not from their architectures, but from how they train—through iterative refinement with deep supervision."
 
 **Visual**: Side-by-side comparison
 - Left: HRM (27M params, complex hierarchy) → 32% verified

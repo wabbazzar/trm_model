@@ -1,0 +1,43 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- HRM Architecture Diagram -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6" />
+    </marker>
+  </defs>
+  
+  <!-- Input -->
+  <rect x="50" y="150" width="100" height="60" fill="#e0e7ff" stroke="#3b82f6" stroke-width="2" rx="5"/>
+  <text x="100" y="185" text-anchor="middle" font-size="14" font-weight="bold">Input x</text>
+  
+  <!-- L-Network (Fast) -->
+  <rect x="250" y="50" width="120" height="80" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" rx="5"/>
+  <text x="310" y="85" text-anchor="middle" font-size="14" font-weight="bold">L-Network</text>
+  <text x="310" y="105" text-anchor="middle" font-size="12">(Fast/Detailed)</text>
+  <text x="310" y="120" text-anchor="middle" font-size="11" fill="#666">High Frequency</text>
+  
+  <!-- H-Network (Slow) -->
+  <rect x="250" y="250" width="120" height="80" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" rx="5"/>
+  <text x="310" y="285" text-anchor="middle" font-size="14" font-weight="bold">H-Network</text>
+  <text x="310" y="305" text-anchor="middle" font-size="12">(Slow/Abstract)</text>
+  <text x="310" y="320" text-anchor="middle" font-size="11" fill="#666">Low Frequency</text>
+  
+  <!-- Output -->
+  <rect x="500" y="150" width="100" height="60" fill="#e0e7ff" stroke="#3b82f6" stroke-width="2" rx="5"/>
+  <text x="550" y="185" text-anchor="middle" font-size="14" font-weight="bold">Output y</text>
+  
+  <!-- Arrows -->
+  <line x1="150" y1="180" x2="250" y2="90" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="150" y1="180" x2="250" y2="290" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="370" y1="90" x2="500" y2="180" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="370" y1="290" x2="500" y2="180" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- Recursive arrows -->
+  <path d="M 310 130 Q 380 170 310 250" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
+  <path d="M 310 250 Q 240 210 310 130" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
+  
+  <!-- Labels -->
+  <text x="400" y="50" text-anchor="middle" font-size="16" font-weight="bold" fill="#1e293b">HRM: Hierarchical</text>
+  <text x="400" y="390" text-anchor="middle" font-size="12" fill="#64748b">27M Parameters</text>
+</svg>
+

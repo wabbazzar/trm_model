@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom slide styles */
+.slide {
+  @apply flex flex-col items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100;
+  height: calc(100vh - 60px);
+  padding: 1.5rem 2rem;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.slide-content {
+  width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.slide-title {
+  @apply text-3xl font-bold mb-2 text-slate-800;
+}
+
+.slide-subtitle {
+  @apply text-lg text-slate-600 mb-4;
+}
+
+.content-area {
+  max-height: calc(100vh - 200px);
+  overflow: hidden;
+}
+
+/* Code block styles */
+.code-block {
+  @apply bg-slate-900 text-slate-100 p-4 rounded-lg overflow-x-auto font-mono text-sm;
+}
+
+/* Chart container */
+.chart-container {
+  @apply w-full max-w-4xl h-96 bg-white rounded-lg shadow-lg p-6;
+}
+

@@ -1,0 +1,37 @@
+{
+  "title": "Training vs Inference Refinement Steps",
+  "source": "ARC Prize Foundation (2025) - Figure 5",
+  "url": "https://arcprize.org/blog/hrm-analysis",
+  "description": "Pass@2 performance over varying number of training and inference refinement loops (HRM ablation study)",
+  "key_comparisons": [
+    {
+      "training_steps": 1,
+      "inference_steps": 1,
+      "accuracy": 0.186,
+      "label": "Baseline",
+      "color": "gray"
+    },
+    {
+      "training_steps": 16,
+      "inference_steps": 1,
+      "accuracy": 0.349,
+      "label": "Training effect",
+      "color": "orange",
+      "highlight": true
+    },
+    {
+      "training_steps": 16,
+      "inference_steps": 4,
+      "accuracy": 0.382,
+      "label": "Training + Inference",
+      "color": "green"
+    }
+  ],
+  "insights": {
+    "training_impact": "+16pp",
+    "inference_impact": "+3pp",
+    "ratio": "5×",
+    "conclusion": "Training with deep supervision is 5× more impactful than inference-time refinement"
+  }
+}
+

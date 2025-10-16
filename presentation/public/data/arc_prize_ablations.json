@@ -1,0 +1,52 @@
+{
+  "title": "ARC Prize HRM Ablation Study Results",
+  "source": "ARC Prize Foundation (2025) as cited in Jolicoeur-Martineau 2025",
+  "reference": "TRM paper, lines 99-109; ARC Prize blog https://arcprize.org/blog/hrm-analysis",
+  "note": "Two independent ablations showing different architectural choices",
+  
+  "experiments": [
+    {
+      "name": "1. H/L + Single-Step\n(Nsup=1)",
+      "accuracy": 0.19,
+      "label": "19%",
+      "description": "HRM architecture, no deep supervision",
+      "detailed_description": "<strong>Config 1: H/L Networks + Single-Step Supervision</strong><br><br><strong>What it is:</strong><br>• HRM's H/L architecture (hierarchy present)<br>• Nsup = 1 (NO deep supervision/outer loop)<br>• Model makes ONE prediction, no refinement<br><br><strong>Architecture:</strong><br>• ✅ H/L networks (hierarchy)<br>• ❌ No outer loop (Nsup = 1)<br>• Forward pass: Input → H/L recursion → Output → DONE<br><br><strong>Result: 19% accuracy</strong><br><br>Shows: Even with fancy H/L architecture, without iterative refinement you only get 19%.",
+      "color": "#94a3b8",
+      "ablation": "A"
+    },
+    {
+      "name": "2. Regular Transformer\n+ Deep Supervision",
+      "accuracy": 0.357,
+      "label": "35.7%",
+      "description": "Single transformer with Nsup=16",
+      "detailed_description": "<strong>Config 2: Regular Transformer + Deep Supervision</strong><br><br><strong>What it is:</strong><br>• Single standard Transformer (no H/L split)<br>• Nsup = 16 (WITH deep supervision/outer loop)<br>• Can refine iteratively<br><br><strong>Architecture:</strong><br>• ❌ No H/L hierarchy (single network)<br>• ✅ Deep supervision (Nsup = 16)<br>• Forward pass: Input → Transformer → refine up to 16 times<br><br><strong>Result: 35.7% accuracy</strong><br><br>Shows: Deep supervision alone (without hierarchy) gets you MOST of the way there!",
+      "color": "#94a3b8",
+      "ablation": "B"
+    },
+    {
+      "name": "3. FULL HRM\n(H/L + Deep Supervision)",
+      "accuracy": 0.39,
+      "label": "39%",
+      "improvement": "From 1: +20pp | From 2: +3.3pp",
+      "description": "Complete HRM: hierarchy + deep supervision",
+      "detailed_description": "<strong>Config 3: FULL HRM (Both Innovations)</strong><br><br><strong>What it is:</strong><br>• H/L networks (hierarchy)<br>• Nsup = 16 (deep supervision)<br>• This is the COMPLETE HRM model<br><br><strong>Architecture:</strong><br>• ✅ H/L hierarchy<br>• ✅ Deep supervision (Nsup = 16)<br><br><strong>Results from BOTH ablations:</strong><br>• vs Config 1 (19%): +20pp — shows deep supervision impact<br>• vs Config 2 (35.7%): +3.3pp — shows hierarchy impact<br><br><strong>Key Insight:</strong><br>The 39% comes from TWO sources, but deep supervision (+20pp) is ~6x more impactful than hierarchy (+3.3pp).",
+      "color": "#8b5cf6",
+      "ablation": "Both",
+      "is_full_model": true
+    }
+  ],
+  
+  "key_insights": [
+    "Deep supervision provides 2x improvement (19% → 39%)",
+    "Hierarchy provides minimal improvement (35.7% → 39%)",
+    "Deep supervision is ~6x more impactful than hierarchy",
+    "Both end at 39%, but from different starting points"
+  ],
+  
+  "comparison": {
+    "deep_supervision_effect": 0.20,
+    "hierarchy_effect": 0.033,
+    "ratio": 6.06
+  }
+}
+
