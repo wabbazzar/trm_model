@@ -144,44 +144,65 @@ Create `presentation/src/app.css`:
 
 ### Data File 1: `public/data/arc_prize_ablations.json`
 
+**Note**: These are TWO SEPARATE ablation studies (not cumulative effects)
+
 ```json
 {
   "title": "ARC Prize HRM Ablation Study Results",
-  "source": "ARC Prize Foundation (2025)",
-  "url": "https://arcprize.org/blog/hrm-analysis",
+  "source": "ARC Prize Foundation (2025) as cited in Jolicoeur-Martineau 2025",
+  "reference": "TRM paper, lines 99-109; ARC Prize blog https://arcprize.org/blog/hrm-analysis",
+  "note": "Two independent ablations showing different architectural choices",
+  
   "experiments": [
     {
-      "name": "Baseline (Single Pass)",
+      "name": "Baseline\n(No Deep Supervision)",
       "accuracy": 0.19,
-      "description": "Standard transformer, no refinement",
-      "color": "#94a3b8"
+      "label": "19%",
+      "description": "Single-step supervision only",
+      "color": "#94a3b8",
+      "baseline_for": "deep_supervision"
     },
     {
-      "name": "+ Hierarchy (H/L Networks)",
+      "name": "Baseline\n(No Hierarchy)",
       "accuracy": 0.357,
-      "improvement": 0.167,
-      "improvementPercent": 87.9,
-      "description": "Added two-network hierarchy",
-      "color": "#3b82f6"
+      "label": "35.7%",
+      "description": "Single transformer, no H/L split",
+      "color": "#94a3b8",
+      "baseline_for": "hierarchy"
     },
     {
-      "name": "+ Hierarchy (Full)",
+      "name": "+ Deep Supervision\n(Outer Loop)",
       "accuracy": 0.39,
-      "improvement": 0.033,
-      "improvementPercent": 9.2,
-      "description": "From 35.7% to 39%",
-      "color": "#3b82f6"
+      "label": "39%",
+      "improvement": "+20pp",
+      "description": "Adds iterative refinement (up to 16 steps)",
+      "color": "#10b981",
+      "highlight": true,
+      "impact": "2.05x improvement (105%)"
     },
     {
-      "name": "+ Deep Supervision",
+      "name": "+ Hierarchy\n(H/L Networks)",
       "accuracy": 0.39,
-      "improvement": 0.20,
-      "improvementPercent": 105.3,
-      "description": "Outer loop refinement",
-      "color": "#10b981"
+      "label": "39%",
+      "improvement": "+3.3pp",
+      "description": "Adds two-network recursion",
+      "color": "#3b82f6",
+      "impact": "9.2% improvement"
     }
   ],
-  "key_insight": "Deep supervision (outer loop) provides 2x improvement, hierarchy only 9%"
+  
+  "key_insights": [
+    "Deep supervision provides 2x improvement (19% → 39%)",
+    "Hierarchy provides minimal improvement (35.7% → 39%)",
+    "Deep supervision is ~6x more impactful than hierarchy",
+    "Both end at 39%, but from different starting points"
+  ],
+  
+  "comparison": {
+    "deep_supervision_effect": 0.20,
+    "hierarchy_effect": 0.033,
+    "ratio": 6.06
+  }
 }
 ```
 
