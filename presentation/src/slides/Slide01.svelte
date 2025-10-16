@@ -45,9 +45,7 @@
             <li>🏗️ Complex hierarchy (H/L)</li>
             <li>✅ 32% ARC-AGI-1 (verified)</li>
             <li>
-              <a href="https://arcprize.org/blog/hrm-analysis" target="_blank" class="hover:underline">
-                📉 40% → 32% (verification drop) 🔗
-              </a>
+              📉 40% → 32% (verification drop)
               <Citation citeId="hrm-verification-drop" inline={true} />
             </li>
           </ul>
@@ -71,7 +69,13 @@
     {/if}
     
     <div class="teaser text-center text-lg text-black">
-      <p>Both papers invoke Kahneman's "Thinking, Fast and Slow"...</p>
+      <p>
+        Both papers invoke Kahneman's 
+        <a href="https://www.audible.com/pd/Thinking-Fast-and-Slow-Audiobook/B005TKKCWC" target="_blank" class="text-blue-600 hover:underline">
+          "Thinking, Fast and Slow" 🔗
+        </a>
+        ...
+      </p>
     </div>
   </div>
 </div>
